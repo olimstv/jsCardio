@@ -1,0 +1,24 @@
+{
+  "name": "interviewprep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olimstv/jsCardio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olimstv/jsCardio/issues"
+  },
+  "homepage": "https://github.com/olimstv/jsCardio#readme",
+  "dependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
