@@ -126,3 +126,175 @@ const filterRangeInPlace2 = (arr, a, b) => {
 // performanceTest(filterRangeInPlace2(arr, 1, 4), 100000);
 // console.log(`My function`);
 // performanceTest(filterRangeInPlace(arr, 1, 4), 100000);
+
+// *******************************
+// Sort in decreasing order
+// *******************************
+let numArr = [5, 2, 1, -10, 8];
+
+// console.log(
+//   `Numbers in decreasing order:>> `,
+//   numArr.sort((a, b) => b - a)
+// );
+
+// *******************************
+//  Copy and sort array
+// *******************************
+// We have an array of strings arr. We’d like to have a sorted copy of it, but keep arr unmodified.
+// Create a function copySorted(arr) that returns such a copy.
+
+let strArr = ['HTML', 'JavaScript', 'CSS'];
+
+const copySorted2 = arr => {
+  return arr.slice().sort();
+};
+
+// performanceTest(copySorted(strArr));
+// performanceTest(copySorted2(strArr));
+// *******************************
+//  Create an extendable calculator
+// *******************************
+
+// Create a constructor function Calculator that creates “extendable” calculator objects.
+// The task consists of two parts.
+// 1. Implement the method calculate(str) that takes a string like "1 + 2" in the format “NUMBER operator NUMBER” (space-delimited) and returns the result. Should understand plus + and minus -.
+// 2. Then add the method addMethod(name, func) that teaches the calculator a new operation. It takes the operator name and the two-argument function func(a,b) that implements it.
+
+function Calculator() {
+  this.methods = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b
+  };
+
+  this.calculate = function (str) {
+    let split = str.split(' '),
+      a = +split[0],
+      op = split[1],
+      b = +split[2];
+
+    if (!op || isNaN(a) || isNaN(b)) {
+      return NaN;
+    }
+    return this.methods[op](a, b);
+  };
+
+  this.addMethod = function (name, func) {
+    this.methods[name] = func;
+  };
+}
+
+const myCalc = new Calculator();
+myCalc.addMethod('*', (a, b) => a * b);
+myCalc.addMethod('/', (a, b) => a / b);
+myCalc.addMethod('**', (a, b) => a ** b);
+
+// let powerCalc = new Calculator();
+
+// let result = powerCalc.calculate('5 + 5');
+// console.log(`5 + 5 = `, result);
+// result = powerCalc.calculate('56 - 8');
+// console.log(`56 - 8 = `, result);
+// powerCalc.addMethod('*', (a, b) => a * b);
+// powerCalc.addMethod('/', (a, b) => a / b);
+// powerCalc.addMethod('**', (a, b) => a ** b);
+// result = powerCalc.calculate('3 * 3');
+// console.log(`3 * 3 = `, result);
+// result = powerCalc.calculate('2 ** 2');
+// console.log(`2 ** 2 = `, result);
+// result = powerCalc.calculate('108 / 16');
+// console.log(`108 / 16 = `, result);
+
+// *******************************
+//  Map to names
+// *******************************
+
+// You have an array of user objects, each one has user.name. Write the code that converts it into an array of names.
+
+// let john = { name: 'John', age: 25 };
+// let pete = { name: 'Pete', age: 30 };
+// let mary = { name: 'Mary', age: 28 };
+
+// let users = [john, pete, mary];
+// let names = users.map(user => user.name);
+// console.log(`names`, names);
+
+// *******************************
+//  Map to objects
+// *******************************
+// You have an array of user objects, each one has name, surname and id.
+// Write the code to create another array from it, of objects with id and fullName, where fullName is generated from name and surname.
+
+/*
+let john = { name: 'John', surname: 'Smith', id: 1 };
+let pete = { name: 'Pete', surname: 'Hunt', id: 2 };
+let mary = { name: 'Mary', surname: 'Key', id: 3 };
+
+let users = [john, pete, mary];
+
+let usersMapped = users.map(user => ({
+  fullName: user.name + ' ' + user.surname,
+  id: user.id
+}));
+
+console.log(`userMapped`, usersMapped);
+console.log(`userMapped`, usersMapped[1].fullName);
+*/
+
+// *******************************
+//  Sort users by age
+// *******************************
+// Write the function sortByAge(users) that gets an array of objects with the age property and sorts them by age.
+
+let john = { name: 'John', age: 25 };
+let pete = { name: 'Pete', age: 30 };
+let mary = { name: 'Mary', age: 28 };
+
+let arrUsers = [pete, john, mary];
+
+const sortByAge = arr => {
+  arr.sort((user1, user2) => user1.age - user2.age);
+};
+// sortByAge(arrUsers);
+// console.log(`arrUsers[0]`, arrUsers[0]);
+// console.log(`arrUsers[1]`, arrUsers[1]);
+// console.log(`arrUsers[2]`, arrUsers[2]);
+// *******************************
+//  Shuffle an array
+// *******************************
+// Write the function shuffle(array) that shuffles (randomly reorders) elements of the array.
+const shuffle = arr => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+    // console.log(`arr`, arr);
+  }
+};
+
+let count = {};
+
+for (let i = 0; i < 100000; i++) {
+  let array = [1, 2, 3];
+
+  shuffle(array);
+  if (count[array.join('')]) {
+    count[array.join('')]++;
+  } else {
+    count[array.join('')] = 1;
+  }
+}
+
+// for (let key in count) {
+//   console.log(`${key}: ${count[key]}`);
+// }
+for (let i = 0; i < Object.keys(count).length; i++) {
+  let key = Object.keys(count)[i],
+    value = count[[key][i]];
+  console.log(`${i + 1}) ${key}: ${count[key]}`);
+  // console.log('log');
+}
+// console.log(`count`, count);
+// console.log(shuffle([1, 2, 3]));
+// console.log(shuffle([1, 2, 3]));
+// console.log(shuffle([1, 2, 3]));
+// console.log(shuffle([1, 2, 3]));
