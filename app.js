@@ -49,9 +49,38 @@ const camelize2 = str => {
     })
     .join('');
 };
-console.time('myFunc');
-camelize(longString);
-console.timeEnd('myFunc');
-console.time('hisFunc');
-camelize2(longString);
-console.timeEnd('hisFunc');
+// console.time('myFunc');
+// camelize(longString);
+// console.timeEnd('myFunc');
+// console.time('hisFunc');
+// camelize2(longString);
+// console.timeEnd('hisFunc');
+
+// *********************************
+// Filter range
+// *********************************
+// Write a function filterRange(arr, a, b) that gets an array arr, looks for elements with values higher or equal to a and lower or equal to b and return a result as an array.
+// The function should not modify the array. It should return the new array.
+
+// slower variant
+const filterRange = (arr, a, b) => {
+  let filteredArray = arr.filter(el => {
+    return el >= a && el <= b;
+  });
+  return filteredArray;
+};
+
+const filterRange2 = (arr, a, b) => {
+  // added brackets around the expression for better readability
+  return arr.filter(item => a <= item && item <= b);
+};
+
+let arr = [5, 3, 8, 1];
+
+// console.log(`output`, filterRange(arr, 1, 4));
+// console.time('myFunc');
+// filterRange(arr);
+// console.timeEnd('myFunc');
+// console.time('hisFunc');
+// filterRange2(arr);
+// console.timeEnd('hisFunc');
