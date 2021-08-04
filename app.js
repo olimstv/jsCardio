@@ -245,15 +245,15 @@ console.log(`userMapped`, usersMapped[1].fullName);
 // *******************************
 // Write the function sortByAge(users) that gets an array of objects with the age property and sorts them by age.
 
-let john = { name: 'John', age: 25 };
-let pete = { name: 'Pete', age: 30 };
-let mary = { name: 'Mary', age: 28 };
+// let john = { name: 'John', age: 25 };
+// let pete = { name: 'Pete', age: 30 };
+// let mary = { name: 'Mary', age: 28 };
 
-let arrUsers = [pete, john, mary];
+// let arrUsers = [pete, john, mary];
 
-const sortByAge = arr => {
-  arr.sort((user1, user2) => user1.age - user2.age);
-};
+// const sortByAge = arr => {
+//   arr.sort((user1, user2) => user1.age - user2.age);
+// };
 // sortByAge(arrUsers);
 // console.log(`arrUsers[0]`, arrUsers[0]);
 // console.log(`arrUsers[1]`, arrUsers[1]);
@@ -287,14 +287,88 @@ for (let i = 0; i < 100000; i++) {
 // for (let key in count) {
 //   console.log(`${key}: ${count[key]}`);
 // }
-for (let i = 0; i < Object.keys(count).length; i++) {
-  let key = Object.keys(count)[i],
-    value = count[[key][i]];
-  console.log(`${i + 1}) ${key}: ${count[key]}`);
-  // console.log('log');
-}
+// for (let i = 0; i < Object.keys(count).length; i++) {
+//   let key = Object.keys(count)[i],
+//     value = count[[key][i]];
+//   console.log(`${i + 1}) ${key}: ${count[key]}`);
+//   // console.log('log');
+// }
 // console.log(`count`, count);
 // console.log(shuffle([1, 2, 3]));
 // console.log(shuffle([1, 2, 3]));
 // console.log(shuffle([1, 2, 3]));
 // console.log(shuffle([1, 2, 3]));
+// *******************************
+// Get average age
+// *******************************
+// Write the function getAverageAge(users) that gets an array of objects with property age and returns the average age
+// The formula for the average is (age1 + age2 + ... + ageN) / N.
+
+// let john = { name: 'John', age: 25 };
+// let john1 = { name: 'John', age: 23 };
+// let pete = { name: 'Pete', age: 30 };
+// let pete1 = { name: 'Pete', age: 35 };
+// let mary = { name: 'Mary', age: 22 };
+// let mary1 = { name: 'Mary', age: 50 };
+
+// let usersArr = [john, pete, mary, john1, pete1, mary1];
+
+// const getAverageAge = users => {
+//   return users.reduce((acc, user) => acc + user.age, 0) / users.length;
+// };
+
+// console.log(getAverageAge(usersArr));
+//  *******************************
+//  Filter unique array members
+//  *******************************
+// Let arr be an array.
+// Create a function unique(arr) that should return an array with unique items of arr.
+// let strings = [
+//   'Hare',
+//   'Krishna',
+//   'Hare',
+//   'Krishna',
+//   'Krishna',
+//   'Krishna',
+//   'Hare',
+//   'Hare',
+//   ':-O'
+// ];
+// const unique = arr => {
+//   let uniqueItems = [];
+//   for (let item of arr) {
+//     !uniqueItems.includes(item) ? uniqueItems.push(item) : null;
+//   }
+//   return uniqueItems;
+// };
+// console.log(`unique items`, unique(strings));
+
+// *******************************
+// Create keyed object from array
+// *******************************
+// Let’s say we received an array of users in the form {id:..., name:..., age:... }.
+// Create a function groupById(arr) that creates an object from it, with id as the key, and array items as values.
+
+let users = [
+  { id: 'john', name: 'John Smith', age: 20 },
+  { id: 'ann', name: 'Ann Smith', age: 24 },
+  { id: 'pete', name: 'Pete Peterson', age: 31 }
+];
+//  slower
+const groupById = arr => {
+  let groupedItems = {};
+  arr.forEach(element => {
+    groupedItems[element.id] = element;
+  });
+  return groupedItems;
+};
+
+// faster
+const groupById1 = arr => {
+  return arr.reduce((obj, value) => {
+    obj[value.id] = value;
+    return obj;
+  }, {});
+};
+// console.log(`groupById(users)`, groupById(users));
+performanceTest(groupById(users));
