@@ -1,3 +1,12 @@
+const performanceTest = (fn, iter) => {
+  // for the performance testing
+  console.time('function test');
+  for (let i = 0; i < iter; i++) {
+    fn;
+  }
+  console.timeEnd('function test');
+};
+
 //  A maximal subarray
 // The input is an array of numbers, e.g. arr = [1, -2, 3, 4, -9, 6].
 // The task is: find the contiguous subarray of arr with the maximal sum of items.
@@ -78,9 +87,42 @@ const filterRange2 = (arr, a, b) => {
 let arr = [5, 3, 8, 1];
 
 // console.log(`output`, filterRange(arr, 1, 4));
-// console.time('myFunc');
-// filterRange(arr);
-// console.timeEnd('myFunc');
 // console.time('hisFunc');
 // filterRange2(arr);
 // console.timeEnd('hisFunc');
+// console.time('myFunc');
+// filterRange(arr);
+// console.timeEnd('myFunc');
+
+// *********************************
+// Filter range "in place"
+// *********************************
+// Write a function filterRangeInPlace(arr, a, b) that gets an array arr and removes from it all values except those that are between a and b. The test is: a ≤ arr[i] ≤ b.
+// The function should only modify the array. It should not return anything.
+
+//
+
+// muFunc is slower
+const filterRangeInPlace = (arr, a, b) => {
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] >= a && arr[i] <= b ? arr[i] : arr.splice(i, 1);
+  }
+};
+
+// hisFunc is faster
+const filterRangeInPlace2 = (arr, a, b) => {
+  for (let i = 0; i < arr.length; i++) {
+    let val = arr[i];
+
+    // remove if outside of the interval
+    if (val < a || val > b) {
+      arr.splice(i, 1);
+      i--;
+    }
+  }
+};
+
+// console.log(`His function`);
+// performanceTest(filterRangeInPlace2(arr, 1, 4), 100000);
+// console.log(`My function`);
+// performanceTest(filterRangeInPlace(arr, 1, 4), 100000);
