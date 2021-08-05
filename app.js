@@ -341,6 +341,13 @@ for (let i = 0; i < 100000; i++) {
 //   }
 //   return uniqueItems;
 // };
+// same result using Sets
+// const uniqueWithSets = arr => {
+//   return Array.from(new Set(arr));
+// };
+
+// performanceTest(unique(strings));
+// performanceTest(uniqueWithSets(strings));
 // console.log(`unique items`, unique(strings));
 
 // *******************************
@@ -371,4 +378,71 @@ const groupById1 = arr => {
   }, {});
 };
 // console.log(`groupById(users)`, groupById(users));
-performanceTest(groupById(users));
+// performanceTest(groupById(users));
+//  ************************************************************************************************
+//  Extract all the authors from a nested object (using custom iterator)
+//  ************************************************************************************************
+
+const myFavAuthors = {
+  // authors object (grouped by genre)
+  allAuthors: {
+    fiction: ['Agatha Christie', 'J. K. Rowling', 'Dr. Seuss'],
+    scienceFiction: [
+      'Neal Stephenson',
+      'Arthur Clarke',
+      'Isaac Asimov',
+      'Robert Heinlein'
+    ],
+    fantasy: ['J. R. R. Tolkien', 'J. K. Rowling', 'Terry Pratchett']
+  },
+
+  // iterator
+  [Symbol.iterator]() {
+    // gather all genres in the collection
+    const genres = Object.values(this.allAuthors);
+    // create iteration indexes
+    let currentGenreIdx = 0,
+      currentAuthorIdx = 0;
+
+    return {
+      // custom next() method
+      next() {
+        // create an array of authors of the [currentGenreIdx] genre
+        const authors = genres[currentGenreIdx];
+
+        // checker of the authors availability (of one particular genre) true/false
+        const dontHaveMoreAuthors = !(currentAuthorIdx < authors.length);
+        // if false (there are no more authors left in the array)
+        if (dontHaveMoreAuthors) {
+          // go to the next genre
+          currentGenreIdx++;
+          // reset currentAuthorIdx to zero
+          currentAuthorIdx = 0;
+        }
+
+        // checker of the genres availability (true/false)
+        const dontHaveOtherGenres = !(currentGenreIdx < genres.length);
+
+        // if false (ther're no more genres left in the array)
+        if (dontHaveOtherGenres) {
+          // break the loop
+          return {
+            value: undefined,
+            done: true
+          };
+        }
+
+        // return author at the current index and go to the next currentAuthorIdx
+        return {
+          value: genres[currentGenreIdx][currentAuthorIdx++],
+          done: false
+        };
+      }
+    };
+  }
+};
+
+for (let author of myFavAuthors) {
+  console.log(author);
+}
+// console.log(...myFavAuthors);
